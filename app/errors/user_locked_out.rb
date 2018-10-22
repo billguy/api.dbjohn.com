@@ -1,0 +1,1 @@
+class UserLockedOut < StandardError; end
