@@ -2,7 +2,6 @@ language: ruby
 rvm:
   - 2.5.1
 before_script:
-  - mv config/database_sample.yml config/database.yml
   - bundle exec rake db:migrate
 script:
   - bundle exec rspec spec
