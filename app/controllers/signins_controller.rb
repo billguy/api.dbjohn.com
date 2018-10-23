@@ -3,7 +3,7 @@ class SigninsController < ApplicationController
   before_action :authorize_access_request!, only: [:destroy]
 
   def create
-    user = User.where(email: params[:email]).first or not_found
+    user = User.where(email: params[:email]).first or (login_incorrect and return)
     raise UserLockedOut if user.locked_out?
 
     if user.valid_password?(params[:password])
@@ -21,5 +21,11 @@ class SigninsController < ApplicationController
     session.flush_by_access_payload
     render json: {}, status: :ok
   end
+
+  private
+
+    def login_incorrect
+      render json: { error: 'Incorrect User/Password' }, status: :unauthorized
+    end
 
 end
