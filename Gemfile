@@ -18,6 +18,7 @@ gem 'google-cloud-storage', '~> 1.11', require: false
 gem 'kaminari'
 gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'active_model_serializers', '~> 0.10.7'
+gem 'permalink'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

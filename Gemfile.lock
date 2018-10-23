@@ -194,6 +194,8 @@ GEM
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     os (1.0.0)
+    permalink (2.0.0)
+      activerecord
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
@@ -306,6 +308,7 @@ DEPENDENCIES
   kaminari
   listen (>= 3.0.5, < 3.2)
   mysql2
+  permalink
   puma (~> 3.11)
   rack-cors
   rails (~> 5.2.1)
