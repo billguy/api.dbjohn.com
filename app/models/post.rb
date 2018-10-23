@@ -2,7 +2,7 @@ class Post < ApplicationRecord
 
   include Navigatable
 
-  permalink :title
+  permalink :title, unique: true
 
   paginates_per 4
 
