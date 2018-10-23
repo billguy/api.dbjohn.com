@@ -9,6 +9,7 @@ class Pic < ApplicationRecord
   validates_presence_of :caption
 
   before_save :reverse_geocode, if: :coords_changed?
+  before_destroy :destroy_photo
 
   reverse_geocoded_by :latitude, :longitude do |pic, geo|
     pic.location  = [geo.first.city, " #{geo.first.state}"].join(",") if Rails.env.production?
@@ -28,5 +29,9 @@ class Pic < ApplicationRecord
         photo.purge
         errors.add(:photo, 'Must be an image file')
       end
+    end
+
+    def destroy_photo
+      photo.purge
     end
 end
