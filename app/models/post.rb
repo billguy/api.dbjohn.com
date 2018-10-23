@@ -8,4 +8,8 @@ class Post < ApplicationRecord
 
   validates_presence_of :content
 
+  def to_param
+    permalink
+  end
+
 end
