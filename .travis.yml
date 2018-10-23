@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.5.1
+  - 2.2
 before_script:
   - mv config/database_sample.yml config/database.yml
   - bundle exec rake db:migrate
