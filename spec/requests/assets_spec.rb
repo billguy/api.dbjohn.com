@@ -31,7 +31,15 @@ describe "Assets", type: :request do
 
   context 'with current_user' do
 
-    before { allow_any_instance_of(AssetsController).to receive(:current_user){ user } }
+    let(:current_user) { FactoryBot.create(:user, password: '1234567') }
+
+    before do
+      payload = { user_id: current_user.id }
+      session = JWTSessions::Session.new(payload: payload)
+      @tokens = session.login
+      cookies[JWTSessions.access_cookie] = @tokens[:access]
+      @access_token = "Bearer #{@tokens[:access]}"
+    end
 
     it "index" do
       get "/assets"
@@ -44,12 +52,12 @@ describe "Assets", type: :request do
     end
 
     it "create" do
-      post "/assets", params: { asset: { attatchment: File.open(Rails.root.join('spec', 'support', 'assets', 'rails.jpg')) } }
+      post "/assets", params: { asset: { attatchment: File.open(Rails.root.join('spec', 'support', 'assets', 'rails.jpg')) } }, headers: { "Authorization" => @access_token }
       expect(response.status).to eq(201)
     end
 
     it "delete" do
-      delete "/assets/#{asset.id}"
+      delete "/assets/#{asset.id}", headers: { "Authorization" => @access_token }
       expect(response.status).to eq(204)
     end
 

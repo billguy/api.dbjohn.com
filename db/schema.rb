@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2018_10_23_132203) do
 
   create_table "posts", force: :cascade do |t|
     t.boolean "published", default: false
+    t.boolean "blog", default: false
     t.string "title"
     t.string "permalink"
     t.text "content"

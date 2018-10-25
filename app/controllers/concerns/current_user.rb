@@ -3,16 +3,22 @@ module CurrentUser
 
   included do
 
-    before_action :load_current_user, only: [:update, :create, :destroy]
-
     private
 
       def current_user
-        @current_user ||= User.where(id: payload['user_id']).first or raise ActiveRecord::RecordNotFound
+        token? ? User.where(id: token_payload['user_id']).first : nil
       end
 
-      def load_current_user
-        current_user
+      def token
+        @token ||= request_headers['Authorization'].to_s.split(' ').last || request_cookies['Authorization']
+      end
+
+      def token?
+        token.present?
+      end
+
+      def token_payload
+        JWTSessions::Token.decode(token, {}).first
       end
 
   end

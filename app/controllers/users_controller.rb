@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
 
-  include CurrentUser
-
-  before_action :load_current_user
+  before_action :authorize_access_request!
   before_action :load_user, only: [:show, :update, :destroy]
 
   def index

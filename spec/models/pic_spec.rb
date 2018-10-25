@@ -4,7 +4,7 @@ RSpec.describe Pic, type: :model do
 
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:caption) }
-  it { is_expected.to callback(:reverse_geocode).before(:save).if(:coords_changed?) }
+  it { is_expected.to callback(:update_location).before(:save).if(:coords_changed?) }
   it { is_expected.to callback(:destroy_photo).before(:destroy) }
 
   let(:pic){ FactoryBot.build(:pic) }

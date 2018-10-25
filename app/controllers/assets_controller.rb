@@ -1,8 +1,6 @@
 class AssetsController < ApplicationController
 
-  include CurrentUser
-
-  before_action :load_current_user
+  before_action :authorize_access_request!
 
   def index
     @assets = Asset.all

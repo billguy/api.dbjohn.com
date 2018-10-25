@@ -8,11 +8,11 @@ class Pic < ApplicationRecord
   validate :correct_mime_type?
   validates_presence_of :caption
 
-  before_save :reverse_geocode, if: :coords_changed?
+  before_save :update_location, if: :coords_changed?
   before_destroy :destroy_photo
 
   reverse_geocoded_by :latitude, :longitude do |pic, geo|
-    pic.location  = [geo.first.city, " #{geo.first.state}"].join(",") if Rails.env.production?
+    pic.location  = [geo.first.city, " #{geo.first.state}"].join(",")
   end
 
   alias_attribute :latitude, :lat
@@ -33,5 +33,9 @@ class Pic < ApplicationRecord
 
     def destroy_photo
       photo.purge
+    end
+
+    def update_location
+      reverse_geocode if Rails.env.production?
     end
 end

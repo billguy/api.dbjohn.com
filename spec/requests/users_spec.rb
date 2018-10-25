@@ -35,7 +35,15 @@ describe "Users", type: :request do
 
   context 'with current_user' do
 
-    before { allow_any_instance_of(UsersController).to receive(:current_user){ user } }
+    let(:current_user) { FactoryBot.create(:user, password: '1234567') }
+
+    before do
+      payload = { user_id: current_user.id }
+      session = JWTSessions::Session.new(payload: payload)
+      @tokens = session.login
+      cookies[JWTSessions.access_cookie] = @tokens[:access]
+      @access_token = "Bearer #{@tokens[:access]}"
+    end
 
     it "index" do
       get "/users"
@@ -48,17 +56,17 @@ describe "Users", type: :request do
     end
 
     it "create" do
-      post "/users", params: { user: { name: 'test123', email: 'test2@test.com', password: '1234567' } }
+      post "/users", params: { user: { name: 'test123', email: 'test2@test.com', password: '1234567' } }, headers: { "Authorization" => @access_token }
       expect(response.status).to eq(201)
     end
 
     it "update" do
-      put "/users/#{user.id}", params: { user: { name: 'test' } }
+      put "/users/#{user.id}", params: { user: { name: 'test' } }, headers: { "Authorization" => @access_token }
       expect(response.status).to eq(200)
     end
 
     it "delete" do
-      delete "/users/#{user.id}"
+      delete "/users/#{user.id}", headers: { "Authorization" => @access_token }
       expect(response.status).to eq(204)
     end
 

@@ -1,10 +1,10 @@
 class PicsController < ApplicationController
 
-  include CurrentUser
+  before_action :authorize_access_request!, only: [:create, :update, :destroy]
   before_action :load_pic, only: [:show, :update, :destroy]
 
   def index
-    @pics = Pic.all
+    @pics = Pic.page params[:page]
     render json: @pics
   end
 
