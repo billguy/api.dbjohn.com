@@ -105,3 +105,6 @@ Rails.application.configure do
     }
   ExceptionNotifier::Rake.configure
 end
+
+Rails.application.routes.default_url_options[:protocol] = 'https'
+Rails.application.routes.default_url_options[:host] = 'api.dbjohn.com'

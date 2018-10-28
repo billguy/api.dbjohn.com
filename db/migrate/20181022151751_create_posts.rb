@@ -6,7 +6,6 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :title
       t.string :permalink
       t.text :content
-      t.text :javascript
 
       t.timestamps
     end

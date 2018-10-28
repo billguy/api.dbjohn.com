@@ -4,18 +4,18 @@ class AssetsController < ApplicationController
 
   def index
     @assets = Asset.all
-    render json: @assets
+    render json: @assets, adapter: :attributes
   end
 
   def show
     @asset = Asset.find(params[:id])
-    render json: @asset
+    render json: @asset, adapter: :attributes
   end
 
   def create
     @asset = Asset.new(asset_params)
     if @asset.save
-      render json: @asset, status: :created, location: @asset
+      render json: @asset, status: :created, location: @asset, adapter: :attributes
     else
       render json: { errors: @asset.errors }, status: :unprocessable_entity
     end

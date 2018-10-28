@@ -3,6 +3,8 @@ class Pic < ApplicationRecord
   include Navigatable
   include Exifable
 
+  acts_as_taggable
+
   has_one_attached :photo
 
   validate :correct_mime_type?

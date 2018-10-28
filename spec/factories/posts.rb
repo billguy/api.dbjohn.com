@@ -5,7 +5,6 @@ FactoryBot.define do
     title { "MyString" }
     permalink { "MyString" }
     content { "MyText" }
-    javascript { "MyText" }
 
   end
 end

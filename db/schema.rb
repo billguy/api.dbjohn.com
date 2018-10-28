@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 2018_10_23_132203) do
     t.string "title"
     t.string "permalink"
     t.text "content"
-    t.text "javascript"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
