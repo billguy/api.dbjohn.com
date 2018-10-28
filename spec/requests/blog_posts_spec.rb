@@ -7,10 +7,10 @@ describe "blog_posts", type: :request do
 
   context 'without current_user' do
     it "index" do
-      get "/blog_posts"
+      get "/blog-posts"
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(200)
-      expect(json[:posts].length).to eq(1)
+      expect(json[:blog_posts].length).to eq(1)
     end
   end
 
@@ -27,9 +27,9 @@ describe "blog_posts", type: :request do
     end
 
     it "index" do
-      get "/blog_posts", headers: { "Authorization" => @access_token }
+      get "/blog-posts", headers: { "Authorization" => @access_token }
       json = JSON.parse(response.body, symbolize_names: true)
-      expect(json[:posts].length).to eq(2)
+      expect(json[:blog_posts].length).to eq(2)
       expect(response.status).to eq(200)
     end
   end
