@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     else
       @posts = Post.pages.published.page(params[:page])
     end
-    render json: @posts, meta: { total_pages: @posts.total_pages, per_page: Post.default_per_page }
+    render json: @posts, meta: { page: params[:page].to_i, total_pages: @posts.total_pages, per_page: Post.default_per_page, tag_list: Post.tag_counts_on(:tags) }
   end
 
   def show
@@ -41,21 +41,16 @@ class PostsController < ApplicationController
 
   private
 
+    def require_param
+      :post
+    end
+
     def post_params
-      params.require(:post).permit(:published, :blog, :title, :content, :tag_list)
+      params.require(require_param).permit(:published, :permalink, :blog, :title, :content, :tag_list)
     end
 
     def load_post
       @post = Post.find_by(permalink: params[:id])
-    end
-
-    def pagination(paginated_array, per_page)
-      {
-        page: params[:page].to_i,
-        per_page: per_page.to_i,
-        total_pages: paginated_array.total_pages,
-        total_objects: paginated_array.total_count
-      }
     end
 
 end

@@ -1,6 +1,4 @@
-class BlogPostsController < ApplicationController
-
-  include CurrentUser
+class BlogPostsController < PostsController
 
   def index
     if current_user
@@ -10,5 +8,11 @@ class BlogPostsController < ApplicationController
     end
     render json: @posts, meta: { page: params[:page].to_i, total_pages: @posts.total_pages, per_page: Post.default_per_page, tag_list: Post.tag_counts_on(:tags) }, root: :blog_posts
   end
+
+  private
+
+    def require_param
+      :blog_post
+    end
 
 end
