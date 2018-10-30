@@ -2,8 +2,13 @@ class Pic < ApplicationRecord
 
   include Navigatable
   include Exifable
+  include SharedScopes
+
+  paginates_per 24
 
   acts_as_taggable
+
+  permalink :title, unique: true
 
   has_one_attached :photo
 
@@ -19,6 +24,13 @@ class Pic < ApplicationRecord
 
   alias_attribute :latitude, :lat
   alias_attribute :longitude, :lng
+
+  scope :with_photos, -> { includes(photo_attachment: [:blob]) }
+  scope :with_photos_and_tags, -> { with_photos.with_tags }
+
+  def to_param
+    permalink
+  end
 
   private
 

@@ -5,13 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-5.times do |n|
-  Post.create(
-      title: "Test #{n}",
-      blog: true,
-      published: true,
-      content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-  )
+
+User.where(name: 'dj', email: 'test@test.com').first_or_create do |user|
+  user.password = 'password'
 end
-Post.create title: 'Unpublished', published: false, blog: true, content: 'test'
-User.create name: 'dj', password: 'password', email: 'test@test.com'
+Post.where(title: 'Unpublished', published: false, blog: true, content: 'test').first_or_create
+
+5.times do |n|
+  Post.where(title: "Test #{n}").first_or_create do |post|
+    post.blog = true,
+    post.published = true,
+    post.content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+  end
+end
+
+50.times do |n|
+  Pic.where(title: "Pic #{n}").first_or_create do |pic|
+    pic.published = true
+    pic.caption = "This is caption #{n}"
+    pic.photo.attach io: File.open(Rails.root.join('spec', 'support', 'assets', 'placeholder.jpg').to_s), filename: "pic_#{n}"
+  end
+end

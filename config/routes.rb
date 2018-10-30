@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :pics, only: [:index, :show, :create, :update, :destroy]
   resources :assets, only: [:index, :show, :create, :destroy]
 
+  post '/rails/active_storage/direct_uploads', to: 'direct_uploads#create' # Rails API workaround for csrf
+
 end

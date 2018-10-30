@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
 
   include Navigatable
+  include SharedScopes
 
   permalink :title, unique: true
 
@@ -12,7 +13,6 @@ class Post < ApplicationRecord
 
   scope :blogs, ->{ includes(:taggings).where(blog: true ) }
   scope :pages, ->{ includes(:taggings).where(blog: false ) }
-  scope :published, ->{ where(published: true ) }
 
   def to_param
     permalink
