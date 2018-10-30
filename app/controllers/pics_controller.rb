@@ -7,7 +7,7 @@ class PicsController < ApplicationController
 
   def index
     if current_user
-      @pics = params[:tags].present? ? Pic.with_photos_and_tags.tagged_with(params[:tags]).page(params[:page]).per(params[:per_page]) : Pic.with_photos.page(params[:page]).per(params[:per_page])
+      @pics = params[:tags].present? ? Pic.with_photos_and_tags.tagged_with(params[:tags]).page(params[:page]).per(params[:per_page]) : Pic.with_photos_and_tags.page(params[:page]).per(params[:per_page])
     else
       @pics = params[:tags].present? ? Pic.with_photos_and_tags.published.tagged_with(params[:tags]).page(params[:page]).per(params[:per_page]) : Pic.with_photos_and_tags.page(params[:page]).per(params[:per_page])
     end

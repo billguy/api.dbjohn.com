@@ -2,7 +2,7 @@ class AssetSerializer < ActiveModel::Serializer
 
   include Rails.application.routes.url_helpers
 
-  attributes :id, :url, :thumb, :link
+  attributes :id, :url, :thumb, :link, :attachment
 
   def url
     if object.attachment.attached?

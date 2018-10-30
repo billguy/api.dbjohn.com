@@ -23,6 +23,7 @@ end
   Pic.where(title: "Pic #{n}").first_or_create do |pic|
     pic.published = true
     pic.caption = "This is caption #{n}"
-    pic.photo.attach io: File.open(Rails.root.join('spec', 'support', 'assets', 'placeholder.jpg').to_s), filename: "pic_#{n}"
+    pic.photo.attach io: File.open(Rails.root.join('spec', 'support', 'assets', 'placeholder.jpg').to_s), filename: "pic_#{n}", content_type: "image/jpg"
+    pic.photo.analyze
   end
 end
