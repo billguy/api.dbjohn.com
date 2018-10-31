@@ -4,17 +4,6 @@ module Navigatable
 
   included do
 
-    validates_presence_of :title
-
-    acts_as_taggable
-    ActsAsTaggableOn.remove_unused_tags = true
-    ActsAsTaggableOn.force_lowercase = true
-    ActsAsTaggableOn.force_parameterize = true
-
-    scope :latest, ->(num=1){
-      where(published: true).order(created_at: :desc).limit(num)
-    }
-
     scope :filter_by, ->(filter=nil, published=true){
       case filter
         when /year/
@@ -33,27 +22,32 @@ module Navigatable
       end
     }
 
-  end
+    def first(published=true)
+      self.class.where("published = ?", published).order("id ASC")
+    end
 
-  def to_param
-    permalink
-  end
+    def next(published=true)
+      n = self.class.where("id > ? and published = ?", id, published).order("id ASC")
+      n.present? ? n : first(published)
+    end
 
-  def first(published=true)
-    published ? self.class.where("published = ?", published).order("id ASC").first : self.class.first
-  end
+    def next_permalink(published=true)
+      send(:next, published).pluck(:permalink).first
+    end
 
-  def next(published=true)
-    published ? self.class.where("id > ? and published = ?", id, published).order("id ASC").first : self.class.where("id > ?", id).order("id ASC").first
-  end
+    def prev(published=true)
+      pr = self.class.where("id < ? and published = ?", id, published).order("id DESC")
+      pr.present? ? pr : last(published)
+    end
 
-  def prev(published=true)
-    published ? self.class.where("id < ? and published = ?", id, published).order("id DESC").first : self.class.where("id < ?", id).order("id DESC").first
-  end
+    def prev_permalink(published=true)
+      prev(published).pluck(:permalink).first
+    end
 
-  def last(published=true)
-    published ? self.class.where("published = ?", published).order("id ASC").last : self.class.last
-  end
+    def last(published=true)
+      self.class.where("published = ?", published).order("id ASC")
+    end
 
+  end
 
 end

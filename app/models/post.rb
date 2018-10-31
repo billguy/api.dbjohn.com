@@ -11,8 +11,8 @@ class Post < ApplicationRecord
 
   validates_presence_of :content
 
-  scope :blogs, ->{ includes(:taggings).where(blog: true ) }
-  scope :pages, ->{ includes(:taggings).where(blog: false ) }
+  scope :blogs, ->{ with_tags.where(blog: true ) }
+  scope :pages, ->{ with_tags.where(blog: false ) }
 
   def to_param
     permalink

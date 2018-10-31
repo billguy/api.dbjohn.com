@@ -15,7 +15,7 @@ class PicsController < ApplicationController
   end
 
   def show
-    render json: @pic
+    render json: @pic, action: :show, current_user: current_user
   end
 
   def create
@@ -46,7 +46,7 @@ class PicsController < ApplicationController
     end
 
     def load_pic
-      @pic = Pic.find(params[:id])
+      @pic = Pic.find_by(permalink: params[:id])
     end
 
 end

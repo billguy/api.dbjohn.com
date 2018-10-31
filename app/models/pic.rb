@@ -1,7 +1,6 @@
 class Pic < ApplicationRecord
 
   include Navigatable
-  include Exifable
   include SharedScopes
 
   paginates_per 24
@@ -52,4 +51,5 @@ class Pic < ApplicationRecord
     def update_location
       reverse_geocode if Rails.env.production?
     end
+
 end

@@ -21,13 +21,22 @@ module ActiveStorage
       return unless image.type == 'JPEG'
 
       if exif = EXIFR::JPEG.new(image.path).exif
+        data = {}
         if gps = exif.fields[:gps]
-          {
+          data.merge({
               latitude:  gps.fields[:gps_latitude].to_f,
               longitude: gps.fields[:gps_longitude].to_f,
               altitude:  gps.fields[:gps_altitude].to_f
-          }
+          })
         end
+        data.merge({
+          date_taken: exif.fields[:date_time],
+          make: exif.fields[:make],
+          model: exif.fields[:model],
+          f_number: exif.fields[:f_number],
+          exposure_time: exif.fields[:exposure_time],
+          iso_speed_ratings: exif.fields[:iso_speed_ratings]
+        })
       end
     rescue EXIFR::MalformedImage, EXIFR::MalformedJPEG
     end
