@@ -23,29 +23,35 @@ module Navigatable
     }
 
     def first(published=true)
-      self.class.where("published = ?", published).order("id ASC")
+      if published
+        self.class.where("published = ?", published).order("id ASC").first
+      else
+        self.class.order("id ASC").first
+      end
     end
 
     def next(published=true)
-      n = self.class.where("id > ? and published = ?", id, published).order("id ASC")
-      n.present? ? n : first(published)
-    end
-
-    def next_permalink(published=true)
-      send(:next, published).pluck(:permalink).first
+      published ? self.class.where("id > ? and published = ?", id, published).order("id ASC").first || first(published) : self.class.where("id > ?", id).order("id ASC").first || first(published)
     end
 
     def prev(published=true)
-      pr = self.class.where("id < ? and published = ?", id, published).order("id DESC")
-      pr.present? ? pr : last(published)
-    end
-
-    def prev_permalink(published=true)
-      prev(published).pluck(:permalink).first
+      published ? self.class.where("id < ? and published = ?", id, published).order("id DESC").first || last(published) : self.class.where("id > ?", id).order("id DESC").first || last(published)
     end
 
     def last(published=true)
-      self.class.where("published = ?", published).order("id ASC")
+      if published
+        self.class.where("published = ?", published).order("id DESC").first
+      else
+        self.class.order("id DESC").first
+      end
+    end
+
+    def next_permalink(published=true)
+      send(:next, published).permalink
+    end
+
+    def prev_permalink(published=true)
+      prev(published).permalink
     end
 
   end

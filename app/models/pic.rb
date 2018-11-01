@@ -11,6 +11,11 @@ class Pic < ApplicationRecord
 
   has_one_attached :photo
 
+  # :xlarge => "1440×1080>",
+  # :large => "720x540>",
+  # :medium => "230x230#",
+  # :thumb => "100x100#",
+
   validate :correct_mime_type?
   validates_presence_of :title, :caption
 

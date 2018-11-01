@@ -16,32 +16,37 @@ class PicSerializer < ActiveModel::Serializer
     instance_options[:action] == :show
   end
 
-  def thumb_url(pic)
+  def watermark_options
+    { gravity: 'SouthEast', draw: 'image Over 0,0 0,0 "' + Rails.root.join('public/dbjohn_watermark.png').to_s + '"' }
+  end
+
+  def photo_url(photo, options={})
+    options = watermark_options.merge(options.except(:watermark)) if options[:watermark]
     if Rails.env.production?
-      pic.photo.variant(resize: "200x133").processed.service_url
+      photo.variant(combine_options: options).processed.service_url
     else
-      rails_representation_url(pic.photo.variant(resize: "200x133").processed)
+      rails_representation_url(photo.variant(combine_options: options).processed)
     end
   end
 
   def prev_pic
-    object.prev(!current_user).first
+    object.prev(!current_user)
   end
 
   def next_pic
-    object.next(!current_user).first
+    object.next(!current_user)
   end
 
   def prev_thumb_url
-    thumb_url(prev_pic)
+    photo_url(prev_pic.photo, { resize: "200x133" })
   end
 
   def next_thumb_url
-    thumb_url(next_pic)
+    photo_url(next_pic.photo, { resize: "200x133" })
   end
 
   def src
-    Rails.env.production? ? object.photo.service_url : rails_blob_url(object.photo)
+    photo_url(object.photo, { resize: "720x540", watermark: true })
   end
 
   def photo
@@ -49,11 +54,7 @@ class PicSerializer < ActiveModel::Serializer
   end
 
   def msrc
-    if Rails.env.production?
-      object.photo.variant(resize: "200x133").processed.service_url
-    else
-      rails_representation_url(object.photo.variant(resize: "200x133").processed)
-    end
+    photo_url(object.photo, { resize: "200x133" })
   end
 
   def w
