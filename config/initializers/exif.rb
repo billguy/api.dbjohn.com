@@ -33,9 +33,9 @@ module ActiveStorage
           date_taken: exif.fields[:date_time],
           make: exif.fields[:make],
           model: exif.fields[:model],
-          f_number: exif.fields[:f_number],
-          exposure_time: exif.fields[:exposure_time],
-          iso_speed_ratings: exif.fields[:iso_speed_ratings]
+          f_number: exif.fields[:exif].try(:f_number),
+          exposure_time: exif.fields[:exif].try(:exposure_time),
+          iso_speed_ratings: exif.fields[:exif].try(:iso_speed_ratings)
         })
       end
     rescue EXIFR::MalformedImage, EXIFR::MalformedJPEG

@@ -10,6 +10,7 @@ User.where(name: 'dj', email: 'test@test.com').first_or_create do |user|
   user.password = 'password'
 end
 Post.where(title: 'Unpublished', published: false, blog: true, content: 'test').first_or_create
+Post.where(title: 'About', published: true, blog: false, content: 'test').first_or_create
 
 5.times do |n|
   Post.where(title: "Test #{n}").first_or_create do |post|

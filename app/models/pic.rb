@@ -20,6 +20,7 @@ class Pic < ApplicationRecord
   validates_presence_of :title, :caption
 
   before_save :update_location, if: :coords_changed?
+  before_save :analyze_photo
   before_destroy :destroy_photo
 
   reverse_geocoded_by :latitude, :longitude do |pic, geo|
@@ -55,6 +56,10 @@ class Pic < ApplicationRecord
 
     def update_location
       reverse_geocode if Rails.env.production?
+    end
+
+    def analyze_photo
+      photo.analyze if photo.attached?
     end
 
 end

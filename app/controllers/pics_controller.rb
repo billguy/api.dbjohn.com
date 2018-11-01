@@ -28,6 +28,7 @@ class PicsController < ApplicationController
   end
 
   def update
+    @pic.photo.purge_later if pic_params[:photo] && @pic.photo.attached? && @pic.photo.attachment.blob.signed_id != pic_params[:photo]
     if @pic.update(pic_params)
       render json: @pic
     else

@@ -84,11 +84,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.smtp_settings = {
-      :address => ENV['SMTP_SERVER'],
-      :enable_starttls_auto => false,
-      :openssl_verify_mode  => 'none',
-      :port => ENV['SMTP_PORT'],
+      :port           => ENV['MAILGUN_SMTP_PORT'],
+      :address        => ENV['MAILGUN_SMTP_SERVER'],
+      :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+      :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+      :domain         => ENV['MAILGUN_DOMAIN'],
+      :authentication => :plain,
   }
+  config.action_mailer.delivery_method = :smtp
 
   config.middleware.insert_before 0, Rack::Cors do
     allow do

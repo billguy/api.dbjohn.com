@@ -20,6 +20,8 @@ gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'active_model_serializers', '~> 0.10.7'
 gem 'permalink'
 gem 'mini_magick'
+gem 'recaptcha'
+gem 'valid_email'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
