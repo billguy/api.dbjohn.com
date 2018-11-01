@@ -95,7 +95,7 @@ Rails.application.configure do
 
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins /https:\/\/(.*?)\.dbjohn\.com/, ENV['CORS_ORIGIN']
+      origins /https:\/\/(.*?)\.dbjohn\.com/
       resource '*', headers: :any, methods: [:get, :post, :options, :put, :patch, :delete]
     end
   end
@@ -103,8 +103,8 @@ Rails.application.configure do
   config.middleware.use ExceptionNotification::Rack,
     email: {
         email_prefix: "[%s Exception]" % [Rails.application.class.parent_name],
-        sender_address: %{"Exception Notifier" <#{ENV['ALERTS_SUPPORT_EMAIL']}>},
-        exception_recipients: ENV['DEVELOPER_EMAIL']
+        sender_address: %{"Exception Notifier" <#{ENV['admin_email']}>},
+        exception_recipients: ENV['admin_email']
     }
   ExceptionNotifier::Rake.configure
 end
