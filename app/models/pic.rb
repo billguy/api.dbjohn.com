@@ -12,7 +12,7 @@ class Pic < ApplicationRecord
   has_one_attached :photo
 
   validate :correct_mime_type?
-  validates_presence_of :caption
+  validates_presence_of :title, :caption
 
   before_save :update_location, if: :coords_changed?
   before_destroy :destroy_photo

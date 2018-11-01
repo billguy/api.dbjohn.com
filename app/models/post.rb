@@ -9,7 +9,7 @@ class Post < ApplicationRecord
 
   acts_as_taggable
 
-  validates_presence_of :content
+  validates_presence_of :title, :content
 
   scope :blogs, ->{ with_tags.where(blog: true ) }
   scope :pages, ->{ with_tags.where(blog: false ) }
