@@ -21,7 +21,7 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: mysql2
+  adapter: postgresql
   database: <%= ENV['DB_NAME'] %>
   host: <%= ENV['DB_HOST'] %>
   username: <%= ENV['DB_USER'] %>
