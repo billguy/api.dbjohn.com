@@ -10,7 +10,7 @@ FactoryBot.define do
     lat { 1.5 }
     lng { 1.5 }
 
-    before(:create) do |pic|
+    before(:build) do |pic|
       pic.photo.attach(io: File.open(Rails.root.join('spec', 'support', 'assets', 'rails.jpg')), filename: 'rails.jpeg', content_type: 'image/jpeg')
     end
   end
