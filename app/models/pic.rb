@@ -30,11 +30,19 @@ class Pic < ApplicationRecord
   alias_attribute :latitude, :lat
   alias_attribute :longitude, :lng
 
-  scope :with_photos, -> { includes(photo_attachment: [:blob]) }
+  scope :with_photos, -> { includes(photo_attachment: [:blob]).order(id: :desc) }
   scope :with_photos_and_tags, -> { with_photos.with_tags }
 
   def to_param
     permalink
+  end
+
+  def lat
+    photo.metadata[:latitude]
+  end
+
+  def lng
+    photo.metadata[:longitude]
   end
 
   private

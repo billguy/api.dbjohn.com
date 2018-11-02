@@ -21,6 +21,7 @@ gem 'permalink'
 gem 'mini_magick'
 gem 'recaptcha'
 gem 'valid_email'
+gem 'yaml_db'
 
 group :development, :test do
   gem 'sqlite3'

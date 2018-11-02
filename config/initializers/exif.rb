@@ -23,13 +23,13 @@ module ActiveStorage
       if exif = EXIFR::JPEG.new(image.path).exif
         data = {}
         if gps = exif.fields[:gps]
-          data.merge({
-              latitude:  gps.fields[:gps_latitude].to_f,
-              longitude: gps.fields[:gps_longitude].to_f,
-              altitude:  gps.fields[:gps_altitude].to_f
+          data.merge!({
+              latitude:  (gps.gps_latitude.to_f * (gps.gps_latitude_ref == 'S' ? -1 : 1)),
+              longitude: (gps.gps_longitude.to_f * (gps.gps_longitude_ref == 'W' ? -1 : 1)),
+              altitude:  gps.gps_altitude.to_f
           })
         end
-        data.merge({
+        data.merge!({
           date_taken: exif.fields[:date_time],
           make: exif.fields[:make],
           model: exif.fields[:model],

@@ -56,11 +56,11 @@ class PicSerializer < ActiveModel::Serializer
   end
 
   def prev_thumb_url
-    photo_url(prev_pic.photo, { resize: "200x133" })
+    photo_url(prev_pic.photo, {thumbnail: '230x230^', gravity: 'center', extent: '230x230'})
   end
 
   def next_thumb_url
-    photo_url(next_pic.photo, { resize: "200x133" })
+    photo_url(next_pic.photo, {thumbnail: '230x230^', gravity: 'center', extent: '230x230'})
   end
 
   def src
@@ -72,7 +72,7 @@ class PicSerializer < ActiveModel::Serializer
   end
 
   def msrc
-    photo_url(object.photo, { resize: "200x133" })
+    photo_url(object.photo, {thumbnail: '230x230^', gravity: 'center', extent: '230x230'})
   end
 
   def w

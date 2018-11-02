@@ -11,8 +11,8 @@ class Post < ApplicationRecord
 
   validates_presence_of :title, :content
 
-  scope :blogs, ->{ with_tags.where(blog: true ) }
-  scope :pages, ->{ with_tags.where(blog: false ) }
+  scope :blogs, ->{ with_tags.where(blog: true ).order(id: :desc) }
+  scope :pages, ->{ with_tags.where(blog: false ).order(id: :desc) }
 
   def to_param
     permalink
