@@ -110,4 +110,4 @@ Rails.application.configure do
 end
 
 Rails.application.routes.default_url_options[:protocol] = 'https'
-Rails.application.routes.default_url_options[:host] = 'api.dbjohn.com'
+Rails.application.routes.default_url_options[:host] = ENV['HOST']

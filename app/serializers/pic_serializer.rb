@@ -40,11 +40,8 @@ class PicSerializer < ActiveModel::Serializer
   def photo_url(photo, options={})
     return unless photo_attached?
     options = watermark_options.merge(options.except(:watermark)) if options[:watermark]
-    if Rails.env.production?
-      photo.variant(combine_options: options).processed.service_url
-    else
-      rails_representation_url(photo.variant(combine_options: options).processed)
-    end
+    variant = photo.variant(combine_options: options).processed
+    rails_representation_url(variant)
   end
 
   def prev_pic
