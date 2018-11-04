@@ -11,16 +11,12 @@ class Pic < ApplicationRecord
 
   has_one_attached :photo
 
-  # :xlarge => "1440×1080>",
-  # :large => "720x540>",
-  # :medium => "230x230#",
-  # :thumb => "100x100#",
-
   validate :correct_mime_type?
   validates_presence_of :title, :caption
 
   before_save :update_location, if: :coords_changed?
   before_save :analyze_photo
+  after_commit :clear_cache
   before_destroy :destroy_photo
 
   reverse_geocoded_by :latitude, :longitude do |pic, geo|
@@ -68,6 +64,10 @@ class Pic < ApplicationRecord
 
     def analyze_photo
       photo.analyze if photo.attached?
+    end
+
+    def clear_cache
+      Rails.cache.delete_matched("pics-with-photos*")
     end
 
 end

@@ -4,13 +4,10 @@ class PicsController < ApplicationController
 
   before_action :authorize_access_request!, only: [:create, :update, :destroy]
   before_action :load_pic, only: [:show, :update, :destroy]
+  before_action :load_pics, only: :index
 
   def index
-    if current_user
-      @pics = params[:tags].present? ? Pic.with_photos_and_tags.tagged_with(params[:tags]).page(params[:page]).per(params[:per_page]) : Pic.with_photos_and_tags.page(params[:page]).per(params[:per_page])
-    else
-      @pics = params[:tags].present? ? Pic.with_photos_and_tags.published.tagged_with(params[:tags]).page(params[:page]).per(params[:per_page]) : Pic.with_photos_and_tags.page(params[:page]).per(params[:per_page])
-    end
+    @pics = @pics.page(params[:page]).per(params[:per_page])
     render json: @pics, meta: { page: params[:page].to_i, total_pages: @pics.total_pages, per_page: Pic.default_per_page, tag_list: Pic.tag_counts_on(:tags) }
   end
 
@@ -48,6 +45,26 @@ class PicsController < ApplicationController
 
     def load_pic
       @pic = Pic.find_by(permalink: params[:id])
+    end
+
+    def load_pics
+      @pics = params[:tags].present? ? pics_with_tags : pics
+    end
+
+    def pics_with_tags
+      if current_user
+        Rails.cache.fetch("pics-with-photos-and-tags-#{params[:tags]}"){ Pic.with_photos_and_tags.tagged_with(params[:tags]) }
+      else
+        Rails.cache.fetch("pics-with-photos-and-tags-published-#{params[:tags]}"){ Pic.with_photos_and_tags.published.tagged_with(params[:tags]) }
+      end
+    end
+
+    def pics
+      if current_user
+        Rails.cache.fetch("pics-with-photos-and-tags"){ Pic.with_photos_and_tags }
+      else
+        Rails.cache.fetch("pics-with-photos-and-tags-published"){ Pic.with_photos_and_tags.published }
+      end
     end
 
 end
