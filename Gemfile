@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.3'
 gem 'pg', group: :production
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -18,7 +18,7 @@ gem 'kaminari'
 gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'active_model_serializers', '~> 0.10.7'
 gem 'permalink'
-gem 'mini_magick'
+gem 'mini_magick', '~> 4.9.5'
 gem 'recaptcha'
 gem 'valid_email'
 gem 'redis-rails'
