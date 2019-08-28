@@ -15,13 +15,13 @@ class PostsController < ApplicationController
   end
 
   def show
-    render json: @post, root: root
+    render json: @post, root: 'post'
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
-      render json: @post, status: :created, location: @post, root: root
+      render json: @post, status: :created, location: @post, root: 'post'
     else
       render json: { errors: @post.errors }, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      render json: @post, root: root
+      render json: @post, root: 'post'
     else
       render json: { errors: @post.errors }, status: :unprocessable_entity
     end
@@ -41,16 +41,8 @@ class PostsController < ApplicationController
 
   private
 
-    def require_param
-      :post
-    end
-
-    def root
-      :posts
-    end
-
     def post_params
-      params.require(require_param).permit(:published, :permalink, :blog, :title, :content, tag_list: [])
+      params.require(:post).permit(:published, :permalink, :blog, :title, :content, tag_list: [])
     end
 
     def load_post
