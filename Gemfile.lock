@@ -196,7 +196,7 @@ GEM
       activerecord
     pg (1.1.4)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.4)
     rack (2.0.7)
     rack-cors (1.0.6)
       rack (>= 1.6.0)
@@ -331,7 +331,7 @@ DEPENDENCIES
   mini_magick (~> 4.9.5)
   permalink
   pg
-  puma (~> 3.11)
+  puma (~> 3.12)
   rack-cors
   rails (~> 5.2.3)
   recaptcha
