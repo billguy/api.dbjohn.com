@@ -21,7 +21,7 @@ gem 'permalink'
 gem 'mini_magick', '~> 4.9.5'
 gem 'recaptcha'
 gem 'valid_email'
-gem 'redis-rails'
+gem 'redis'
 
 group :development, :test do
   gem 'sqlite3'
