@@ -120,3 +120,4 @@ end
 Rails.application.routes.default_url_options[:protocol] = 'https'
 Rails.application.routes.default_url_options[:host] = ENV['HOST']
 Rails.application.config.hosts << "api-dbjohn-com.herokuapp.com"
+Rails.application.config.hosts << "ember-dbjohn-com.herokuapp.com"
