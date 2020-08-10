@@ -10,7 +10,7 @@ class User < ApplicationRecord
   MAX_ATTEMPTS=5
 
   def valid_password?(password)
-    password.present? && BCrypt::Engine.hash_secret(password, salt)
+    password.present? && BCrypt::Engine.hash_secret(password, salt) == BCrypt::Engine.hash_secret(encrypted_password, salt)
   end
 
   def login!
