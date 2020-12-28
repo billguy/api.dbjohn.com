@@ -33,7 +33,7 @@ module ActiveStorage
           date_taken: exif.date_time,
           make: exif.make,
           model: exif.model,
-          f_number: exif.f_number,
+          f_number: exif.f_number.to_f,
           exposure_time: exif.exposure_time,
           iso_speed_ratings: exif.iso_speed_ratings
         })
