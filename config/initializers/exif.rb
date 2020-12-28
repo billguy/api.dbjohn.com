@@ -30,12 +30,12 @@ module ActiveStorage
           })
         end
         data.merge!({
-          date_taken: exif.fields[:date_time],
-          make: exif.fields[:make],
-          model: exif.fields[:model],
-          f_number: exif.fields[:exif].try(:f_number),
-          exposure_time: exif.fields[:exif].try(:exposure_time),
-          iso_speed_ratings: exif.fields[:exif].try(:iso_speed_ratings)
+          date_taken: exif.date_time,
+          make: exif.make,
+          model: exif.model,
+          f_number: exif.f_number,
+          exposure_time: exif.exposure_time,
+          iso_speed_ratings: exif.iso_speed_ratings
         })
       end
     rescue EXIFR::MalformedImage, EXIFR::MalformedJPEG
