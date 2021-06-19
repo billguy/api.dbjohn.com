@@ -20,7 +20,6 @@ gem 'active_model_serializers', '~> 0.10.7'
 gem 'permalink'
 gem 'mini_magick', '~> 4.9.5'
 gem 'recaptcha'
-gem 'valid_email'
 gem 'redis'
 
 group :development, :test do
