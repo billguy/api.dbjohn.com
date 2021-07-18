@@ -118,7 +118,7 @@ Rails.application.configure do
 
   config.middleware.use ExceptionNotification::Rack,
     email: {
-        email_prefix: "[%s Exception]" % [Rails.application.class.parent_name],
+        email_prefix: "[%s Exception]" % [Rails.application.class.module_parent_name],
         sender_address: %{"Exception Notifier" <#{ENV['admin_email']}>},
         exception_recipients: ENV['admin_email']
     }
