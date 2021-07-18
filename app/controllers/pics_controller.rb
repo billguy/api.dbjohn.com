@@ -61,9 +61,9 @@ class PicsController < ApplicationController
 
     def pics
       if current_user
-        Rails.cache.fetch("pics-with-photos-and-tags"){ Pic.with_photos_and_tags }
+        Rails.cache.fetch("pics-with-photos-and-tags"){ ::Pic.with_photos_and_tags }
       else
-        Rails.cache.fetch("pics-with-photos-and-tags-published"){ Pic.with_photos_and_tags.published }
+        Rails.cache.fetch("pics-with-photos-and-tags-published"){ ::Pic.with_photos_and_tags.published }
       end
     end
 
