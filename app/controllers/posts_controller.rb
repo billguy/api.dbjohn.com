@@ -1,8 +1,5 @@
-class PostsController < ApplicationController
+class PostsController < BaseController
 
-  include CurrentUser
-
-  before_action :authorize_access_request!, only: [:create, :update, :destroy]
   before_action :load_post, only: [:show, :update, :destroy]
 
   def index
@@ -15,13 +12,13 @@ class PostsController < ApplicationController
   end
 
   def show
-    render json: @post, root: 'post'
+    render json: @post
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
-      render json: @post, status: :created, location: @post, root: 'post'
+      render json: @post, status: :created, location: @post
     else
       render json: { errors: @post.errors }, status: :unprocessable_entity
     end
@@ -29,7 +26,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      render json: @post, root: 'post'
+      render json: @post
     else
       render json: { errors: @post.errors }, status: :unprocessable_entity
     end

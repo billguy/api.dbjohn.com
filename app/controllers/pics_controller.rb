@@ -1,10 +1,7 @@
-class PicsController < ApplicationController
+class PicsController < BaseController
 
-  include CurrentUser
-
-  before_action :authorize_access_request!, only: [:create, :update, :destroy]
-  before_action :load_pic, only: [:show, :update, :destroy]
   before_action :load_pics, only: :index
+  before_action :load_pic, only: [:show, :update, :destroy]
 
   def index
     @pics = @pics.page(params[:page]).per(params[:per_page])
@@ -25,7 +22,6 @@ class PicsController < ApplicationController
   end
 
   def update
-    @pic.photo.purge_later if pic_params[:photo] && @pic.photo.attached? && @pic.photo.attachment.blob.signed_id != pic_params[:photo]
     if @pic.update(pic_params)
       render json: @pic
     else
@@ -43,12 +39,12 @@ class PicsController < ApplicationController
       params.require(:pic).permit(:published, :title, :permalink, :caption, :photo, tag_list: [])
     end
 
-    def load_pic
-      @pic = Pic.find_by(permalink: params[:id])
-    end
-
     def load_pics
       @pics = params[:tags].present? ? pics_with_tags : pics
+    end
+
+    def load_pic
+      @pic = Pic.find_by(permalink: params[:id])
     end
 
     def pics_with_tags
@@ -61,9 +57,9 @@ class PicsController < ApplicationController
 
     def pics
       if current_user
-        Rails.cache.fetch("pics-with-photos-and-tags"){ ::Pic.with_photos_and_tags }
+        Rails.cache.fetch("pics-with-photos-and-tags"){ Pic.with_photos_and_tags }
       else
-        Rails.cache.fetch("pics-with-photos-and-tags-published"){ ::Pic.with_photos_and_tags.published }
+        Rails.cache.fetch("pics-with-photos-and-tags-published"){ Pic.with_photos_and_tags.published }
       end
     end
 

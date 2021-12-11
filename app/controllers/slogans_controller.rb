@@ -1,6 +1,5 @@
-class SlogansController < ApplicationController
+class SlogansController < BaseController
 
-  before_action :authorize_access_request!, only: [:create, :update, :destroy]
   before_action :load_slogan, only: [:show, :update, :destroy]
 
   def index

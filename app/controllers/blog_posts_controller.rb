@@ -1,8 +1,5 @@
-class BlogPostsController < PostsController
+class BlogPostsController < BaseController
 
-  include CurrentUser
-
-  before_action :authorize_access_request!, only: [:create, :update, :destroy]
   before_action :load_post, only: [:show, :update, :destroy]
 
   def index
@@ -11,17 +8,17 @@ class BlogPostsController < PostsController
     else
       @posts = params[:tags].present? ? Post.published.blogs.tagged_with(params[:tags]).page(params[:page]).per(params[:per_page]) : Post.published.blogs.page(params[:page]).per(params[:per_page])
     end
-    render json: @posts, meta: { page: params[:page].to_i, total_pages: @posts.total_pages, per_page: Post.default_per_page, tag_list: Post.tag_counts_on(:tags) }, root: 'blog_posts'
+    render json: @posts, root: :blog_posts, meta: { page: params[:page].to_i, total_pages: @posts.total_pages, per_page: Post.default_per_page, tag_list: Post.tag_counts_on(:tags) }
   end
 
   def show
-    render json: @post, root: 'blog_post'
+    render json: @post, root: :blog_post
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
-      render json: @post, status: :created, location: @post, root: 'blog_post'
+      render json: @post, status: :created, location: @post, root: :blog_post
     else
       render json: { errors: @post.errors }, status: :unprocessable_entity
     end
@@ -29,7 +26,7 @@ class BlogPostsController < PostsController
 
   def update
     if @post.update(post_params)
-      render json: @post, root: 'blog_post'
+      render json: @post, root: :blog_post
     else
       render json: { errors: @post.errors }, status: :unprocessable_entity
     end
