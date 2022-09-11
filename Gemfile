@@ -15,7 +15,7 @@ gem 'exception_notification-rake', github: 'nikhaldi/exception_notification-rake
 gem 'geocoder'
 gem 'google-cloud-storage', '~> 1.11', require: false
 gem 'kaminari'
-gem 'bcrypt-ruby', require: 'bcrypt'
+gem 'bcrypt', require: 'bcrypt'
 gem 'active_model_serializers', '~> 0.10.7'
 gem 'permalink'
 gem 'mini_magick', '~> 4.9.5'
