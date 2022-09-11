@@ -130,3 +130,4 @@ Rails.application.routes.default_url_options[:host] = ENV['HOST']
 Rails.application.config.hosts << "api-dbjohn-com.herokuapp.com"
 Rails.application.config.hosts << "ember-dbjohn-com.herokuapp.com"
 Rails.application.config.hosts << "dbjohnember-production.up.railway.app"
+Rails.application.config.hosts << "apidbjohncom-production.up.railway.app"
