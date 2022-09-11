@@ -5,7 +5,7 @@ ruby '2.7.4'
 
 gem 'rails', '6.1.4'
 gem 'pg', group: :production
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors'
 gem 'jwt_sessions'
