@@ -111,7 +111,7 @@ Rails.application.configure do
 
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins /http(s)?:\/\/(.*?)\.?dbjohn\.com/, /https:\/\/ember-dbjohn-com\.herokuapp\.com/, /https:\/\/api-dbjohn-com\.herokuapp\.com/
+      origins /http(s)?:\/\/(.*?)\.?dbjohn\.com/, /https:\/\/ember-dbjohn-com\.herokuapp\.com/, /https:\/\/api-dbjohn-com\.herokuapp\.com/, /https:\/\/dbjohnember-production\.up\.railway\.app/, /https:\/\/apidbjohncom-production\.up\.railway\.app/
       resource '*', headers: :any, methods: [:get, :post, :options, :put, :patch, :delete]
     end
   end
