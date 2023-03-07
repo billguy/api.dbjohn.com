@@ -23,18 +23,18 @@ gem 'recaptcha'
 gem 'redis'
 gem 'image_processing', '~> 1.2'
 
-group :development, :test do
-  gem 'sqlite3'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'shoulda-matchers', '~> 3.1'
-  gem 'shoulda-callback-matchers', '~> 1.1.1'
-  gem 'database_cleaner'
-  gem 'rspec-rails', '~> 3.7'
-  gem 'factory_bot_rails'
-  gem 'dotenv-rails'
-end
-
-group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'bullet', github: 'flyerhzm/bullet'
-end
+# group :development, :test do
+#   gem 'sqlite3'
+#   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+#   gem 'shoulda-matchers', '~> 3.1'
+#   gem 'shoulda-callback-matchers', '~> 1.1.1'
+#   gem 'database_cleaner'
+#   gem 'rspec-rails', '~> 3.7'
+#   gem 'factory_bot_rails'
+#   gem 'dotenv-rails'
+# end
+#
+# group :development do
+#   gem 'listen', '>= 3.0.5', '< 3.2'
+#   gem 'bullet', github: 'flyerhzm/bullet'
+# end
