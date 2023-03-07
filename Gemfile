@@ -21,7 +21,7 @@ gem 'permalink'
 gem 'mini_magick', '~> 4.9.5'
 gem 'recaptcha'
 gem 'redis'
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 
 # group :development, :test do
 #   gem 'sqlite3'
