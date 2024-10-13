@@ -1,4 +1,4 @@
-class ContactMailer < ActionMailer::Base
+class ContactMailer < ApplicationMailer
 
   def new_contact(contact)
     @contact = contact
