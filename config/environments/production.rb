@@ -97,11 +97,11 @@ Rails.application.configure do
 
   
   config.action_mailer.smtp_settings = {
-      :port           => ENV['MAILGUN_SMTP_PORT'],
-      :address        => ENV['MAILGUN_SMTP_SERVER'],
-      :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-      :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-      :domain         => ENV['MAILGUN_DOMAIN'],
+      :port           => ENV['MAIL_SMTP_PORT'],
+      :address        => ENV['MAIL_SMTP_SERVER'],
+      :user_name      => ENV['MAIL_SMTP_LOGIN'],
+      :password       => ENV['MAIL_SMTP_PASSWORD'],
+      :domain         => ENV['MAIL_DOMAIN'],
       :authentication => :plain,
   }
   config.action_mailer.delivery_method = :smtp
@@ -116,7 +116,7 @@ Rails.application.configure do
   config.middleware.use ExceptionNotification::Rack,
     email: {
         email_prefix: "[%s Exception]" % [Rails.application.class.module_parent_name],
-        sender_address: %{"Exception Notifier" <#{ENV['admin_email']}>},
+        sender_address: %{"Exception Notifier" <#{ENV['MAIL_SMTP_LOGIN']}>},
         exception_recipients: ENV['admin_email']
     }
   ExceptionNotifier::Rake.configure
