@@ -22,6 +22,7 @@ gem 'mini_magick'
 gem 'recaptcha'
 gem 'redis'
 gem 'image_processing'
+gem 'mailgun-ruby', '~> 1.4.3'
 
 group :development, :test do
   gem 'sqlite3'

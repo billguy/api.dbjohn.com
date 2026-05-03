@@ -144,6 +144,8 @@ GEM
       logger
     faraday-follow_redirects (0.5.0)
       faraday (>= 1, < 3)
+    faraday-multipart (1.2.0)
+      multipart-post (~> 2.0)
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
     ffi (1.17.4)
@@ -231,6 +233,11 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailgun-ruby (1.4.3)
+      faraday (~> 2.1)
+      faraday-multipart (< 2)
+      mini_mime
+      zeitwerk
     marcel (1.1.0)
     mini_magick (5.3.1)
       logger
@@ -239,6 +246,7 @@ GEM
     minitest (5.27.0)
     msgpack (1.8.0)
     multi_json (1.21.0)
+    multipart-post (2.4.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
     net-imap (0.6.4)
@@ -401,6 +409,7 @@ DEPENDENCIES
   jwt_sessions
   kaminari
   listen (>= 3.0.5, < 3.2)
+  mailgun-ruby (~> 1.4.3)
   mini_magick
   permalink
   pg

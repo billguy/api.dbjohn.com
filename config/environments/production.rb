@@ -93,18 +93,11 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-
-
-  
-  config.action_mailer.smtp_settings = {
-      :port           => ENV['MAIL_SMTP_PORT'],
-      :address        => ENV['MAIL_SMTP_SERVER'],
-      :user_name      => ENV['MAIL_SMTP_LOGIN'],
-      :password       => ENV['MAIL_SMTP_PASSWORD'],
-      :domain         => ENV['MAIL_DOMAIN'],
-      :authentication => :plain,
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: ENV['MAILGUN_API_KEY'],
+    domain: ENV['MAILGUN_DOMAIN']
   }
-  config.action_mailer.delivery_method = :smtp
 
   config.middleware.insert_before 0, Rack::Cors do
     allow do
