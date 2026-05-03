@@ -34,11 +34,11 @@ class Pic < ApplicationRecord
   end
 
   def lat
-    photo.metadata[:latitude] if photo.attached?
+    read_attribute(:lat) || (photo.metadata[:latitude] if photo.attached?)
   end
 
   def lng
-    photo.metadata[:longitude] if photo.attached?
+    read_attribute(:lng) || (photo.metadata[:longitude] if photo.attached?)
   end
 
   private
